@@ -1,0 +1,38 @@
+{
+  "name": "layouts",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "src/libs/ui/layouts/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["src/libs/ui/layouts/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "pnpm test-storybook --url http://127.0.0.1:4400 --config-dir src/libs/.storybook",
+            "color": "cyan"
+          }
+        ]
+      }
+    },
+    "test-coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "pnpm test-storybook --coverage --url http://127.0.0.1:4400 --config-dir src/libs/.storybook",
+            "color": "cyan"
+          }
+        ]
+      }
+    }
+  }
+}

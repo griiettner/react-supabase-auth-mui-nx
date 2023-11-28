@@ -1,0 +1,72 @@
+{ /* login.mdx */ }
+
+import { Meta, Source } from '@storybook/blocks';
+
+<Meta title="Utils/auth/login" name="Login" />
+
+# `login` Function Documentation
+
+## Overview
+The login function is an asynchronous function used for user authentication. It attempts to log in a user using their email and password. The function checks for empty input fields, handles the login process, and manages the authentication state based on the login attempt's success or failure.
+
+## Function Signature
+
+<Source
+  language="typescript"
+  code={`export async function login({ email, password }: UtilsAuthLoginProps): UtilsAuthLoginFnReturn`}
+/>
+
+## Parameters
+- `UtilsAuthLoginProps`: An object containing the following properties:
+  - `email`: A string representing the user's email address.
+  - `password`: A string representing the user's password.
+
+## Returns
+- `UtilsAuthLoginFnReturn`: This could be any type depending on the implementation of `updateAuthState`. Typically, it returns the updated authentication state.
+
+<Source
+  language="typescript"
+  code={`
+{
+  data?: {
+    user?: User | null;
+    session?: Session | null;
+  };
+  error?: number | null;
+  message?: string | null;
+  success?: boolean;
+}
+  `}
+/>
+
+## Behavior
+1. **Empty Input Validation**: The function first checks if the email or password is empty. If either is found empty, it updates the authentication state to an error state indicative of empty input fields.
+2. **Login Attempt**: If both email and password are provided, the function attempts to sign in using Supabase's signInWithPassword method.
+3. **Error Handling**:
+    - If the login attempt fails due to an error (e.g., incorrect credentials), the function logs the error message and updates the authentication state to reflect the error.
+    - If there is an exception during the process, the function catches it and updates the authentication state to a general login error state.
+4. **Success**: On successful login, the function updates the authentication state to a success state, including the data received from the login attempt.
+
+## Example Usage
+<Source language="javascript"
+code={`
+login({
+  email: "user@example.com",
+  password: "password123"
+})
+.then(authState => {
+  console.log("Authentication State:", authState);
+})
+.catch(error => {
+  console.error("Login Error:", error);
+});
+  `}
+/>
+
+## Notes
+- `updateAuthState` is a function (not shown here) that updates the authentication state. Its implementation details will affect the return type and the behavior of the login function.
+- `supabase.auth.signInWithPassword` is a method from the Supabase authentication API used for signing in with an email and password.
+- Constants like `ERROR_EMPTY`, `ERROR`, `MESSAGE`, `SUCCESS`, and `t` are assumed to be defined elsewhere in the codebase. Their values and types play a crucial role in the function's operation.
+
+## Dependency
+- **Supabase**: This function depends on the Supabase service for authentication.

@@ -1,0 +1,53 @@
+{ /* updateAuthState.mdx */ }
+
+import { Meta, Source, ArgTypes } from '@storybook/blocks';
+
+<Meta title="Utils/auth/updateAuthState" name="updateAuthState" />
+
+# `updateAuthState` Function Documentation
+
+## Overview
+The `updateAuthState` function manages the state of user authentication based on different scenarios. It updates the authentication state to reflect various outcomes such as reset, error, or success in authentication processes.
+
+## Function Signature
+
+<Source
+  language="typescript"
+  code={`
+    export function updateAuthState(type: string, payload?: any): UtilsAuthLoginState
+  `}
+/>
+
+## Parameters
+- `type`: A string that represents the type of state update. This could be one of the predefined constants like `RESET`, `ERROR`, `ERROR_EMPTY`, `ERROR_INCORRECT`, or `SUCCESS`.
+- `payload`: An optional parameter of any type, typically used to pass additional data or error messages. Its usage depends on the `type`.
+
+## Returns
+- `UtilsAuthLoginState`: The updated state of the authentication. The structure of this return type depends on the state constants and the `authInitialState`.
+
+## Behavior
+1. **Reset (`RESET`)**: Resets the authentication state to its initial state.
+2. **Error Handling (`ERROR`, `ERROR_EMPTY`, `ERROR_INCORRECT`)**: Updates the authentication state to reflect an error. It sets an error code (e.g., 400) and an error message. The message is either provided by payload or derived from a translation function t based on the type.
+3. **Success (`SUCCESS`)**: Updates the authentication state to reflect successful authentication, including any relevant data provided in `payload.data`.
+4. `Default Case`: For any other `type` value, it returns the initial state of authentication.
+
+## Example Usage
+<Source
+  language="javascript"
+  code={`import { updateAuthState } from '@utils';
+
+const updatedState = updateAuthState(ERROR, "Invalid credentials");
+console.log("Updated Auth State:", updatedState);
+
+const successState = updateAuthState(SUCCESS, { data: { user: "John Doe" } });
+console.log("Auth State on Success:", successState);
+  `}
+/>
+
+## Notes
+- `authInitialState` is assumed to be a predefined constant that represents the initial state of authentication.
+- Constants like `RESET`, `ERROR`, `ERROR_EMPTY`, `ERROR_INCORRECT`, and `SUCCESS` are assumed to be defined elsewhere in the codebase.
+- `t` is a translation function or method that returns a localized string based on the provided key (e.g., `t('auth.login.ERROR')`).
+- The function uses a switch-case structure to handle different types of authentication state updates.
+
+This Markdown documentation provides a detailed overview of the updateAuthState function, ensuring clear understanding and effective usage in the codebase.

@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "ESNext",
+    "lib": ["es2020", "dom", "dom.iterable"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "typeRoots": ["node_modules/@types", "src/libs/types", "node_modules/@nx/react/typings"],
+    "baseUrl": ".",
+    "paths": {
+      "@components": ["src/libs/ui/components/src/index.ts"],
+      "@config": ["src/libs/config/src/index.ts"],
+      "@contexts": ["src/libs/contexts/src/index.ts"],
+      "@hooks": ["src/libs/hooks/src/index.ts"],
+      "@layouts": ["src/libs/ui/layouts/src/index.ts"],
+      "@locales": ["src/libs/locales/index.ts"],
+      "@pages": ["src/libs/ui/pages/src/index.ts"],
+      "@routes": ["src/libs/routes/src/index.ts"],
+      "@ts": ["src/libs/types/index.d.ts"],
+      "@utils":   ["src/libs/utils/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,79 @@
+{ /* supabase.mdx */ }
+
+import { Meta, Source } from '@storybook/blocks';
+
+<Meta title="Utils/supabase" name="supabase" />
+
+# Supabase Client Wrapper
+
+## Overview
+This document outlines our project's implementation of a wrapper around the createClient function from Supabase. This wrapper simplifies the process of integrating Supabase by automatically providing the API URL and ANON Key, streamlining the setup for database interactions and authentication.
+
+## Installation
+Ensure that the `@supabase/supabase-js` package is installed in the project:
+
+<Source
+  code={`
+    pnpm install @supabase/supabase-js
+  `}
+/>
+
+## Configuration
+The wrapper is designed to automatically configure the Supabase client using environment variables for the Supabase API URL and ANON Key.
+
+### Environment Variables
+Set the following keys in your environment:
+
+- `VITE_SUPABASE_API_URL`: Your Supabase project URL.
+- `VITE_SUPABASE_ANON_KEY`: Your Supabase project anon key.
+
+These can be defined in a `.env` file or within your environment's configuration system.
+
+### Supabase Client Wrapper
+The wrapper around the Supabase `createClient` is set up as follows:
+
+<Source
+  language="javascript"
+  code={`
+// src/libs/utils/src/supabase/supabaseClient.ts
+import { createClient } from '@supabase/supabase-js';
+import { SUPABASE_API_URL, SUPABASE_ANON_KEY } from '@config';
+
+export const supabase = createClient(SUPABASE_API_URL, SUPABASE_ANON_KEY);
+  `}
+/>
+
+In this setup, `@config` should be a module that exports the necessary environment variables.
+
+## Usage
+
+To use the wrapped Supabase client in your application:
+
+1. Import the `supabase` client:
+
+<Source
+  language="javascript"
+  code={`
+import { supabase } from '@utils';
+  `}
+/>
+
+2. Utilize the `supabase` client for various operations, such as user authentication, database queries, and more.
+
+Example - User Authentication:
+
+<Source
+  language="javascript"
+  code={`
+const { user, error } = await supabase.auth.signIn({
+  email: 'example@example.com',
+  password: 'example-password',
+});
+
+// Handle response
+  `}
+/>
+
+## Additional Information
+- Official Supabase Documentation: [Supabase Docs](https://supabase.io/docs)
+- GitHub Repository for supabase-js: [supabase/supabase-js](https://github.com/supabase/supabase-js)

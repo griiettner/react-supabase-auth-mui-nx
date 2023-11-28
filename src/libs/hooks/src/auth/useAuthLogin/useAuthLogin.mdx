@@ -1,0 +1,101 @@
+import { Meta, Source } from '@storybook/blocks';
+
+<Meta title="Hooks/auth/useAuthLogin" />
+
+# `useAuthLogin` Hook
+
+The `useAuthLogin` hook is designed for handling user authentication processes in a React application. It integrates with React Router for navigation, `react-i18next` for internationalization, and manages the authentication state.
+
+## Importing useAuthLogin
+
+To use `useAuthLogin`, import it into your component file:
+
+<Source
+  dark
+  language="tsx"
+  code={`import { useAuthLogin } from '@hooks';`}
+/>
+
+## Purpose
+
+The hook serves to:
+- Handle login by fetching authentication data.
+- Redirect the user upon successful login.
+- Manage authentication state and display messages (optionally localized).
+
+## Dependencies
+
+`useAuthLogin` depends on:
+- `useState` and `useEffect` from React.
+- `useNavigate` and `useLocation` from `react-router-dom`.
+- `useTranslation` from `react-i18next`.
+- Custom `login` function and constants from your utility and config files.
+- Custom `logout` function from your utility file.
+
+## Parameters
+
+The `loginFetch` function inside the hook takes an object with:
+- `email` (string): User's email.
+- `password` (string): User's password.
+
+The `logoutFetch` function inside the hook takes no parameters.
+
+## Return Values
+
+The `useAuthLogin` hook returns:
+- `loginFetch`: Function to trigger the login process.
+- `logoutFetch`: Function to trigger the logout process.
+- State object containing authentication data and messages.
+
+<Source
+  dark
+  language="typescript"
+  code={`
+{
+  data?: {
+    user?: User | null;
+    session?: Session | null;
+  };
+  error?: number | null;
+  message?: string | null;
+  success?: boolean;
+}
+  `}
+/>
+
+## Example Usage
+
+Below is an example of how to use the `useAuthLogin` hook in a component:
+
+<Source
+  language="tsx"
+  dark
+  code={`
+import React from 'react';
+import { useAuthLogin } from 'path-to-useAuthLogin-hook';
+
+const LoginComponent = () => {
+  const { loginFetch, logoutFetch message, success, loading } = useAuthLogin();
+
+  const handleLogin = () => {
+    loginFetch({ email: 'user@example.com', password: 'password123' });
+  };
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <div>
+      {message && <p>{message}</p>}
+      <button onClick={handleLogin}>Login</button>
+      <button onClick={logoutFetch}>Logout</button>
+    </div>
+  );
+};
+
+export default LoginComponent;
+  `}
+/>
+
+This example demonstrates a basic login component using the `useAuthLogin` hook. Modify the implementation to suit your application's specific needs.
